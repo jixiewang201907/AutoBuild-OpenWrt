@@ -5,7 +5,7 @@
 # Youtube Channel: https://goo.gl/fvkdwm 
 #=================================================
 
-name: Build-k2p
+name: build-k2p
 
 on: 
   release:
@@ -58,7 +58,7 @@ jobs:
         sudo -E apt-get clean
     - name: Clone source code
       env: 
-        REPO_URL: https://github.com/jixiewang201907/openwrt
+        REPO_URL: https://github.com/jixiewang201907/openwrt.git
         REPO_BRANCH: master
       run: |
         git clone --depth 1 $REPO_URL -b $REPO_BRANCH openwrt
@@ -75,7 +75,7 @@ jobs:
     #  run: |
     #    git clone -b 18.06 https://github.com/jerrykuku/luci-theme-argon.git package/luci-theme-argon-jerrykuku
     
-    - name: Configuration Customization - Build-k2p
+    - name: Configuration Customization - build-k2p
       env:
         CONFIG_FILE: 'k2p.config'
       run: |
