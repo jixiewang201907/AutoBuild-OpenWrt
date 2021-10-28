@@ -69,7 +69,8 @@ jobs:
       run: |
         ./scripts/feeds update -a
         ./scripts/feeds install -a
-            
+        ./scripts/feeds install -a
+        
     #- name: Import external feeds - JerryKuKu Argon
     #  working-directory: ./openwrt
     #  run: |
@@ -94,31 +95,8 @@ jobs:
       run: |
         echo -e "$(nproc) thread build."
         make -j$(nproc) V=s
-    
-    - name: Deliver buildinfo
-      uses: actions/upload-artifact@v2
+    - name : Upload artifact
+      uses: actions/upload-artifact@master
       with:
-        name: OpenWrt_buildinfo
-        path: ./artifact/buildinfo/
-
-    - name: Deliver package
-      uses: actions/upload-artifact@v2
-      with:
-        name: OpenWrt_package
-        path: ./artifact/package/
-
-    - name: Deliver firmware
-      uses: actions/upload-artifact@v2
-      with:
-        name: OpenWrt_firmware
-        path: ./bin/targets/
-
-    - name: Upload release asset
-      if: github.event == 'release'
-      uses: svenstaro/upload-release-action@v2
-      with:
-        repo_token: ${{ secrets.YOURTOKEN }}
-        file: ./artifact/firmware/*
-        tag: ${{ github.ref }}
-        file_glob: true
-   
+        name: OpenWrt
+        path: openwrt/bin
